@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using JournalingGUI.Controller;
 
 namespace JournalingGUI
 {
@@ -20,9 +21,12 @@ namespace JournalingGUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        FileSystemController FileSystem;
+
         public MainWindow()
         {
             InitializeComponent();
+            FileSystem = new FileSystemController();
         }
     }
 }
