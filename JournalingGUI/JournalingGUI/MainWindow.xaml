@@ -5,8 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JournalingGUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Журналирование файловой системы" Height="450" Width="800"
+        ResizeMode="NoResize">
+    <Window.Resources>
+        <ResourceDictionary Source="./Resource/MainDictionary.xaml"></ResourceDictionary>
+    </Window.Resources>
+    <DockPanel>
+        <StackPanel Orientation="Horizontal">
+            <GroupBox  Width="500">
+                <DockPanel>
+                    <StackPanel 
+                            Width="300" Background="#FFC20C0C">
+                            <Label>Имя файла</Label>
+                            <RichTextBox></RichTextBox>
+                            <Button Content="Сохранить файл"></Button>
+                            <Button Content="Удалить файл"></Button>
+                    </StackPanel>
+                    <StackPanel Background="#FF50D93B">
+                        <Label>Файлы</Label>
+                        <ListBox>
+                            <ListBoxItem>
+                                p.txt
+                            </ListBoxItem>
+                        </ListBox>
+                    </StackPanel>
+                </DockPanel>
+            </GroupBox>
+            <GroupBox Width="280">
+                <DockPanel>
+                    <StackPanel Background="#FF5B66E8">
+                        <Label>Журнал</Label>
+                        <RichTextBox Height="336"></RichTextBox>
+                    </StackPanel>
+                </DockPanel>
+            </GroupBox>
+        </StackPanel>
+    </DockPanel>
 
-    </Grid>
 </Window>
