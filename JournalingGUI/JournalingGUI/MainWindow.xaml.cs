@@ -27,6 +27,8 @@ namespace JournalingGUI
         {
             InitializeComponent();
             FileSystem = new FileSystemController();
+
+            filesListBox.ItemsSource = FileSystem.filesList;
         }
     }
 }

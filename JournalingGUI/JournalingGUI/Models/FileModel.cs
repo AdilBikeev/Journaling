@@ -18,5 +18,10 @@ namespace JournalingGUI.Models
         /// Содержимое файла
         /// </summary>
         public string body { get; set; }
+
+        public override string ToString()
+        {
+            return fileName; 
+        }
     }
 }

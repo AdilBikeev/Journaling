@@ -23,11 +23,7 @@
                     </StackPanel>
                     <StackPanel Background="#FF50D93B">
                         <Label>Файлы</Label>
-                        <ListBox>
-                            <ListBoxItem>
-                                p.txt
-                            </ListBoxItem>
-                        </ListBox>
+                        <ListBox x:Name="filesListBox"></ListBox>
                     </StackPanel>
                 </DockPanel>
             </GroupBox>
