@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using JournalingGUI.Hellpers;
+using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace JournalingGUI.Controller
 {
@@ -15,13 +19,23 @@ namespace JournalingGUI.Controller
         private readonly string path = Path.Combine(Directory.GetCurrentDirectory(), "file_system");
 
         /// <summary>
+        /// Время обновления файловой системы в мс.
+        /// </summary>
+        private static readonly int timeUpdate = 1000;
+
+        /// <summary>
         /// Список файлов
         /// </summary>
-        public List<FileModel> filesList = new List<FileModel>();
+        public ObservableCollection<FileModel> filesList = new ObservableCollection<FileModel>();
 
         public FileSystemController()
         {
-            this.Load();
+        }
+
+        public void UpdateFileSystemAsync()
+        {
+            TaskHellpers task = new TaskHellpers();
+            task.StartTimer(this.Load, FileSystemController.timeUpdate);
         }
 
         /// <summary>
@@ -32,6 +46,8 @@ namespace JournalingGUI.Controller
             try
             {
                 DirectoryInfo directory = new DirectoryInfo(this.path);
+                JournalFileSystemController journal = new JournalFileSystemController();
+                ObservableCollection<FileModel> currentFiles = new ObservableCollection<FileModel>();
 
                 foreach (var file in directory.GetFiles())
                 {
@@ -41,8 +57,11 @@ namespace JournalingGUI.Controller
                         fileName = file.Name
                     };
 
-                    filesList.Add(fileModel);
+                    currentFiles.Add(fileModel);
+                    journal.Add(fileModel, this.filesList);
                 }
+                journal.CheckDeleteFiles(this.filesList, currentFiles);
+                FileSystemHellpers.UpdateFileList(this.filesList, journal);
             }
             catch (Exception exc)
             {

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using JournalingGUI.Controller;
+using JournalingGUI.Hellpers;
+using JournalingGUI.Models;
 
 namespace JournalingGUI
 {
@@ -27,8 +31,9 @@ namespace JournalingGUI
         {
             InitializeComponent();
             FileSystem = new FileSystemController();
+            FileSystem.UpdateFileSystemAsync();
 
-            filesListBox.ItemsSource = FileSystem.filesList;
+            this.filesListBox.ItemsSource = FileSystem.filesList;
         }
     }
 }
