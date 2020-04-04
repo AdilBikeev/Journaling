@@ -71,5 +71,13 @@ namespace JournalingGUI
         {
             FileSystem.Save(this.NameFileTb.Text, (new TextRange(this.BodyFileRtb.Document.ContentStart, this.BodyFileRtb.Document.ContentEnd)).Text);
         }
+
+        private void DeleteFileDtn_Click(object sender, RoutedEventArgs e)
+        {
+            var fileName = this.NameFileTb.Text;
+            var items = this.FilesListBox.Items;
+            this.FilesListBox.SelectedItem = items[items.Count-2];
+            FileSystem.Delete(fileName);
+        }
     }
 }

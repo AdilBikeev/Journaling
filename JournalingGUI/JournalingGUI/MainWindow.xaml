@@ -21,7 +21,9 @@
                             <Button x:Name="SaveFileBtn" 
                                     Content="Сохранить файл"
                                     Click="SaveFileBtn_Click"></Button>
-                            <Button x:Name="DeleteFileDtn" Content="Удалить файл"></Button>
+                            <Button x:Name="DeleteFileDtn"
+                                    Content="Удалить файл"
+                                    Click="DeleteFileDtn_Click"></Button>
                     </StackPanel>
                     <StackPanel Background="#FF50D93B">
                         <Label>Файлы</Label>

@@ -94,20 +94,35 @@ namespace JournalingGUI.Controller
         }
 
         /// <summary>
-        /// Проверяет есть ли файл с таким же именем.
+        /// Удаляет файл из файловой системы.
         /// </summary>
         /// <param name="fileName">Имя файла.</param>
-        private bool IsFileExist(string fileName)
+        public void Delete(string fileName)
         {
-            DirectoryInfo directory = new DirectoryInfo(this.path);
+            var path = Path.Combine(this.path, fileName);
 
-            if(directory.GetFiles().FirstOrDefault(x => x.Name == fileName) == null)
+            if(IsFileExist(path))
             {
-                return false;
+                File.Delete(path);
+            } else
+            {
+                MessageBoxHellpers.Error("Ошибка", $"Файл с именем: {fileName} не существует в дириктории {path}");
+            }
+        }
+
+        /// <summary>
+        /// Проверяет есть ли файл с таким же именем.
+        /// </summary>
+        /// <param name="fileFullName">Полное Имя файла.</param>
+        private bool IsFileExist(string fileFullName)
+        {
+            if(File.Exists(fileFullName))
+            {
+                return true;
             }
             else
             {
-                return true;
+                return false;
             }
         }
     }
