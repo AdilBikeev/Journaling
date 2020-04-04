@@ -13,6 +13,7 @@
         <Setter Property="Height" Value="40"></Setter>
         <Setter Property="HorizontalAlignment" Value="Center"></Setter>
         <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="Margin" Value="0 10 0 10" />
     </Style>
     
     <Style TargetType="RichTextBox">
@@ -32,6 +33,7 @@
         <Setter Property="Height" Value="30"></Setter>
         <Setter Property="Background" Value="#E2E2E2"></Setter>
         <Setter Property="Cursor" Value="Hand"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
     </Style>
 
 
@@ -41,6 +43,15 @@
         <Setter Property="Margin" Value="10 0 10 10"></Setter>
         <Setter Property="Background" Value="White"></Setter>
         <Setter Property="Foreground" Value="Black"></Setter>
+    </Style>
+
+    <Style TargetType="TextBox">
+        <Setter Property="Margin" Value="10 10 10 10" />
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="20"></Setter>
+        <Setter Property="Height" Value="40"></Setter>
+        <Setter Property="IsEnabled" Value="false" />
     </Style>
 
 </ResourceDictionary>

@@ -39,14 +39,23 @@ namespace JournalingGUI
         private void FilesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var item = (FileModel)this.FilesListBox.SelectedItem;
-            this.NameFileLb.Content = item.fileName;
+            if(item.fileName != FileModel.DefaultFileName)
+            {
+                this.NameFileTb.IsEnabled = false;
+                this.NameFileTb.Text = item.fileName;
+            }else
+            {
+                this.NameFileTb.IsEnabled = true;
+                this.NameFileTb.Text = "Новый файл";
+            }
+
             TextRange textRange = new TextRange(this.BodyFileRtb.Document.ContentStart, this.BodyFileRtb.Document.ContentEnd);
             textRange.Text = item.body;
         }
 
         private void SaveFileBtn_Click(object sender, RoutedEventArgs e)
         {
-            FileSystem.Save(this.NameFileLb.Content.ToString(), (new TextRange(this.BodyFileRtb.Document.ContentStart, this.BodyFileRtb.Document.ContentEnd)).Text);
+            FileSystem.Save(this.NameFileTb.Text, (new TextRange(this.BodyFileRtb.Document.ContentStart, this.BodyFileRtb.Document.ContentEnd)).Text);
         }
     }
 }

@@ -16,7 +16,7 @@
                 <DockPanel>
                     <StackPanel 
                             Width="300" Background="#FFC20C0C">
-                            <Label x:Name="NameFileLb">Имя файла</Label>
+                        <TextBox x:Name="NameFileTb">Новый файл</TextBox>
                             <RichTextBox x:Name="BodyFileRtb"></RichTextBox>
                             <Button x:Name="SaveFileBtn" 
                                     Content="Сохранить файл"

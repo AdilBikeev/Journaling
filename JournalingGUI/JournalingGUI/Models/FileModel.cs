@@ -9,6 +9,8 @@ namespace JournalingGUI.Models
     /// </summary>
     public class FileModel
     {
+        public const string DefaultFileName = "+"; 
+
         /// <summary>
         /// Название файла с расширением
         /// </summary>
@@ -22,6 +24,15 @@ namespace JournalingGUI.Models
         public override string ToString()
         {
             return fileName; 
+        }
+
+        /// <summary>
+        /// Создает дефолтный объект для обозначения формирования нового файла.
+        /// </summary>
+        public FileModel()
+        {
+            this.body = string.Empty;
+            this.fileName = FileModel.DefaultFileName;
         }
     }
 }

@@ -11,6 +11,8 @@ namespace JournalingGUI.Hellpers
 {
     public static class FileSystemHellpers
     {
+        private static object locker = new object();
+
         /// <summary>
         /// Возвращает содержимое файла.
         /// </summary>
@@ -35,11 +37,19 @@ namespace JournalingGUI.Hellpers
         /// <param name="journal">Журнал файловой системы.</param>
         public static void UpdateFileList(ObservableCollection<FileModel> filesListOld, JournalFileSystemController journal)
         {
+            if (filesListOld.FirstOrDefault(x => x.fileName == FileModel.DefaultFileName) == null)
+            {
+                filesListOld.Add(new FileModel());
+            }
+
             //Удаляем из ListBox удаленные из файловой системы файлы
             foreach (var file in journal.deleteFiles)
             {
-                var item = filesListOld.FirstOrDefault(x => x.fileName == file.Value.fileName);
-                filesListOld.Remove(item);
+                if(file.Value.fileName != FileModel.DefaultFileName)
+                {
+                    var item = filesListOld.FirstOrDefault(x => x.fileName == file.Value.fileName);
+                    filesListOld.Remove(item);
+                }
             }
 
             //Обновляем тела документов
