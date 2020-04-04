@@ -34,18 +34,32 @@ namespace JournalingGUI
             FileSystem.UpdateFileSystemAsync();
 
             this.FilesListBox.ItemsSource = FileSystem.filesList;
+            InitStateForm();
+        }
+
+        private void InitStateForm()
+        {
+            this.NameFileTb.IsEnabled = false;
+            this.BodyFileRtb.IsEnabled = false;
+            this.SaveFileBtn.IsEnabled = false;
+            this.DeleteFileDtn.IsEnabled = false;
         }
 
         private void FilesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            this.BodyFileRtb.IsEnabled = true;
+            this.SaveFileBtn.IsEnabled = true;
+
             var item = (FileModel)this.FilesListBox.SelectedItem;
             if(item.fileName != FileModel.DefaultFileName)
             {
                 this.NameFileTb.IsEnabled = false;
+                this.DeleteFileDtn.IsEnabled = true;
                 this.NameFileTb.Text = item.fileName;
             }else
             {
                 this.NameFileTb.IsEnabled = true;
+                this.DeleteFileDtn.IsEnabled = false;
                 this.NameFileTb.Text = "Новый файл";
             }
 

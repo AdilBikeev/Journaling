@@ -21,7 +21,7 @@
                             <Button x:Name="SaveFileBtn" 
                                     Content="Сохранить файл"
                                     Click="SaveFileBtn_Click"></Button>
-                            <Button Content="Удалить файл"></Button>
+                            <Button x:Name="DeleteFileDtn" Content="Удалить файл"></Button>
                     </StackPanel>
                     <StackPanel Background="#FF50D93B">
                         <Label>Файлы</Label>
@@ -34,7 +34,7 @@
                 <DockPanel>
                     <StackPanel Background="#FF5B66E8">
                         <Label>Журнал</Label>
-                        <RichTextBox Height="336"></RichTextBox>
+                        <RichTextBox Height="336" IsEnabled="False"></RichTextBox>
                     </StackPanel>
                 </DockPanel>
             </GroupBox>
