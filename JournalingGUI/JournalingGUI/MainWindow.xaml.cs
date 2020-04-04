@@ -33,7 +33,15 @@ namespace JournalingGUI
             FileSystem = new FileSystemController();
             FileSystem.UpdateFileSystemAsync();
 
-            this.filesListBox.ItemsSource = FileSystem.filesList;
+            this.FilesListBox.ItemsSource = FileSystem.filesList;
+        }
+
+        private void filesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var item = (FileModel)this.FilesListBox.SelectedItem;
+            this.NameFileLb.Content = item.fileName;
+            TextRange textRange = new TextRange(this.BodyFileRtb.Document.ContentStart, this.BodyFileRtb.Document.ContentEnd);
+            textRange.Text = item.body;
         }
     }
 }

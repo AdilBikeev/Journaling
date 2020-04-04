@@ -16,14 +16,15 @@
                 <DockPanel>
                     <StackPanel 
                             Width="300" Background="#FFC20C0C">
-                            <Label>Имя файла</Label>
-                            <RichTextBox></RichTextBox>
+                            <Label x:Name="NameFileLb">Имя файла</Label>
+                            <RichTextBox x:Name="BodyFileRtb"></RichTextBox>
                             <Button Content="Сохранить файл"></Button>
                             <Button Content="Удалить файл"></Button>
                     </StackPanel>
                     <StackPanel Background="#FF50D93B">
                         <Label>Файлы</Label>
-                        <ListBox x:Name="filesListBox"></ListBox>
+                        <ListBox x:Name="FilesListBox"
+                                 SelectionChanged="filesListBox_SelectionChanged"></ListBox>
                     </StackPanel>
                 </DockPanel>
             </GroupBox>
