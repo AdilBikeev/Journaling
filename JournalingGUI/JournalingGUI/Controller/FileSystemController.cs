@@ -68,5 +68,47 @@ namespace JournalingGUI.Controller
                 MessageBoxHellpers.Error("Ошибка", exc.Message);   
             }
         }
+    
+        /// <summary>
+        /// Сохраняет файл в файловой системе
+        /// </summary>
+        public void Save(string fileName, string body)
+        {
+            if(IsFileExist(fileName) && !MessageBoxHellpers.Questions("Файл с данным именем уже существует, вы уверены, что хотите перезаписать данные в нём ?"))
+            {
+                return;
+            }else
+            {
+                try
+                {
+                    using (StreamWriter sw = new StreamWriter(Path.Combine(this.path, fileName)))
+                    {
+                        sw.Write(body);
+                    }
+                }
+                catch (Exception exc)
+                {
+                    MessageBoxHellpers.Error($"Исключение {nameof(FileSystemController)}.Save", exc.Message);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Проверяет есть ли файл с таким же именем.
+        /// </summary>
+        /// <param name="fileName">Имя файла.</param>
+        private bool IsFileExist(string fileName)
+        {
+            DirectoryInfo directory = new DirectoryInfo(this.path);
+
+            if(directory.GetFiles().FirstOrDefault(x => x.Name == fileName) == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

@@ -36,12 +36,17 @@ namespace JournalingGUI
             this.FilesListBox.ItemsSource = FileSystem.filesList;
         }
 
-        private void filesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void FilesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var item = (FileModel)this.FilesListBox.SelectedItem;
             this.NameFileLb.Content = item.fileName;
             TextRange textRange = new TextRange(this.BodyFileRtb.Document.ContentStart, this.BodyFileRtb.Document.ContentEnd);
             textRange.Text = item.body;
+        }
+
+        private void SaveFileBtn_Click(object sender, RoutedEventArgs e)
+        {
+            FileSystem.Save(this.NameFileLb.Content.ToString(), (new TextRange(this.BodyFileRtb.Document.ContentStart, this.BodyFileRtb.Document.ContentEnd)).Text);
         }
     }
 }
