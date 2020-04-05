@@ -60,7 +60,7 @@ namespace JournalingGUI.Controller
         {
             try
             {
-                using (StreamWriter sw = new StreamWriter(Path.Combine(this.path, $"{file.fileName}.{file.extension}")))
+                using (StreamWriter sw = new StreamWriter(Path.Combine(this.path, $"{file.fileName}{file.extension}")))
                 {
                     sw.Write(file.body);
                 }
@@ -81,6 +81,18 @@ namespace JournalingGUI.Controller
             {
                 if(file.fileName != FileModel.DefaultFileName)
                     this.Save(file);
+            }
+        }
+    
+        /// <summary>
+        /// Восстанавливает файловую систему из последнего сеанса
+        /// </summary>
+        /// <param name="files">Список файлов в текущей файловой системе</param>
+        public void Restore(ObservableCollection<FileModel> files)
+        {
+            foreach (var file in this.filesBackupList)
+            {
+                files.Add(file);
             }
         }
     }

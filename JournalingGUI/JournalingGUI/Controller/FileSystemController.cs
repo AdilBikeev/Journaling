@@ -48,7 +48,11 @@ namespace JournalingGUI.Controller
                     break;
                 case System.Windows.MessageBoxResult.Yes:
                     this.ClearFileSystem();
-                    //Перезапись fileList из fileBackupList
+                    this.backup.Restore(this.filesList);
+                    foreach (var file in this.filesList)
+                    {
+                        this.Save(file);
+                    }
                     break;
                 case System.Windows.MessageBoxResult.No:
                     this.backup.ClearFileSystem();
@@ -97,7 +101,7 @@ namespace JournalingGUI.Controller
         ///<inheritdoc/>
         public override void Save(FileModel file)
         {
-            if (IsFileExist(Path.Combine(this.path, $"{file.fileName}.{file.extension}")))
+            if (IsFileExist(Path.Combine(this.path, $"{file.fileName}{file.extension}")))
             {
                 var result = MessageBoxHellpers.Questions("Файл с данным именем уже существует, вы уверены, что хотите перезаписать данные в нём ?");
 
@@ -117,7 +121,7 @@ namespace JournalingGUI.Controller
 
             try
             {
-                using (StreamWriter sw = new StreamWriter(Path.Combine(this.path, $"{file.fileName}.{file.extension}")))
+                using (StreamWriter sw = new StreamWriter(Path.Combine(this.path, $"{file.fileName}{file.extension}")))
                 {
                     sw.Write(file.body);
                 }
@@ -150,6 +154,7 @@ namespace JournalingGUI.Controller
         /// </summary>
         public void SaveSession()
         {
+            this.backup.ClearFileSystem();
             this.backup.SaveAll(this.filesList);
         }
     }

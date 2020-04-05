@@ -14,7 +14,7 @@ namespace JournalingGUI.Models
         /// <summary>
         /// Расширение для файлов по умолчанию.
         /// </summary>
-        public const string DefaultExtension = "txt";
+        public const string DefaultExtension = ".txt";
 
         /// <summary>
         /// Название файла с расширением

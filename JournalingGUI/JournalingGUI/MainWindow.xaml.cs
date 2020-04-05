@@ -31,9 +31,9 @@ namespace JournalingGUI
         {
             InitializeComponent();
             FileSystem = new FileSystemController();
-            FileSystem.UpdateFileSystemAsync();
-
             this.FilesListBox.ItemsSource = FileSystem.filesList;
+
+            FileSystem.UpdateFileSystemAsync();
             InitStateForm();
         }
 
