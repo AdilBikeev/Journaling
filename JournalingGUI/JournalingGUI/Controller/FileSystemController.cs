@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace JournalingGUI.Controller
 {
-    public class FileSystemController
+    public class FileSystemController : BaseFileSystem
     {
         /// <summary>
         /// Путь к файловой системе
@@ -38,10 +38,8 @@ namespace JournalingGUI.Controller
             task.StartTimer(this.Load, FileSystemController.timeUpdate);
         }
 
-        /// <summary>
-        /// Загружает все данные файловой системы
-        /// </summary>
-        public void Load()
+        ///<inheritdoc/>
+        public override void Load()
         {
             try
             {
@@ -70,10 +68,8 @@ namespace JournalingGUI.Controller
             }
         }
     
-        /// <summary>
-        /// Сохраняет файл в файловой системе
-        /// </summary>
-        public void Save(FileModel file, bool isNewFile)
+        ///<inheritdoc/>
+        public override void Save(FileModel file)
         {
             if (IsFileExist(Path.Combine(this.path, $"{file.fileName}.{file.extension}")))
             {
@@ -120,22 +116,6 @@ namespace JournalingGUI.Controller
             } else
             {
                 MessageBoxHellpers.Error("Ошибка", $"Файл с именем: {fileName} не существует в дириктории {path}");
-            }
-        }
-
-        /// <summary>
-        /// Проверяет есть ли файл с таким же именем.
-        /// </summary>
-        /// <param name="fileFullName">Полное Имя файла.</param>
-        private bool IsFileExist(string fileFullName)
-        {
-            if(File.Exists(fileFullName))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
             }
         }
     }

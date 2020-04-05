@@ -76,7 +76,6 @@ namespace JournalingGUI
             if (this.FilesListBox.SelectedItem != null)
             {
                 FileModel file = new FileModel();
-                bool isNewFile = file.fileName == FileModel.DefaultFileName;
 
                 file.fileName = this.NameFileTb.Text;
                 if (!string.IsNullOrEmpty(file.fileName))
@@ -84,7 +83,7 @@ namespace JournalingGUI
                     if (file.fileName != FileModel.DefaultFileName)
                     {
                         file.body = (new TextRange(this.BodyFileRtb.Document.ContentStart, this.BodyFileRtb.Document.ContentEnd)).Text;
-                        FileSystem.Save(file, isNewFile);
+                        FileSystem.Save(file);
                     }
                     else
                     {
