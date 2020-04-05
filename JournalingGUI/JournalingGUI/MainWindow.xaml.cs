@@ -30,11 +30,18 @@ namespace JournalingGUI
         public MainWindow()
         {
             InitializeComponent();
+            InitJournal();
+
             FileSystem = new FileSystemController();
             this.FilesListBox.ItemsSource = FileSystem.filesList;
 
             FileSystem.UpdateFileSystemAsync();
             InitStateForm();
+        }
+
+        private void InitJournal()
+        {
+            JournalFileSystemController.journal = this.JournalRtb;
         }
 
         private void InitStateForm()
@@ -99,11 +106,15 @@ namespace JournalingGUI
 
         private void DeleteFileDtn_Click(object sender, RoutedEventArgs e)
         {
-            var fileName = this.NameFileTb.Text;
+            FileModel file = new FileModel();
+
+            file.fileName = this.NameFileTb.Text;
+
             var items = this.FilesListBox.Items;
             this.FilesListBox.SelectedItem = items[items.Count-2];
             Thread.Sleep(1000);
-            FileSystem.Delete(fileName);
+            FileSystem.Delete(file);
+            JournalFileSystemController.AddInfo($"Файл {file.ToString()} удален из файловой системы");
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

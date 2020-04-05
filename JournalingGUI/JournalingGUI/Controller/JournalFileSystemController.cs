@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Windows.Controls;
+using System.Windows.Documents;
 
 namespace JournalingGUI.Controller
 {
@@ -12,6 +14,8 @@ namespace JournalingGUI.Controller
     /// </summary>
     public class JournalFileSystemController
     {
+        public static RichTextBox journal { private get; set; }
+
         /// <summary>
         /// Словарь удаленных файлов
         /// </summary>
@@ -70,6 +74,16 @@ namespace JournalingGUI.Controller
                     this.deleteFiles.Add(index, file);
                 }
             }
+        }
+
+        /// <summary>
+        /// Добавляет информацию в журнал
+        /// </summary>
+        /// <param name="info">Информация для журнала</param>
+        public static void AddInfo(string info)
+        {
+            TextRange rtb = new TextRange(JournalFileSystemController.journal.Document.ContentStart, JournalFileSystemController.journal.Document.ContentEnd);
+            rtb.Text += $"[{DateTime.Now.ToString("hh:mm:ss:ff")}] {info}";
         }
     }
 }

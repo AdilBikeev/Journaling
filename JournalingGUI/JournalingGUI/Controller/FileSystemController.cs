@@ -45,16 +45,20 @@ namespace JournalingGUI.Controller
                 case System.Windows.MessageBoxResult.OK:
                     break;
                 case System.Windows.MessageBoxResult.Cancel:
+                    JournalFileSystemController.AddInfo("Восстановление сессии отменено");
                     break;
                 case System.Windows.MessageBoxResult.Yes:
+                    JournalFileSystemController.AddInfo("Начало восстановление сессии");
                     this.ClearFileSystem();
                     this.backup.Restore(this.filesList);
                     foreach (var file in this.filesList)
                     {
                         this.Save(file);
                     }
+                    JournalFileSystemController.AddInfo("Сессия восстановлена");
                     break;
                 case System.Windows.MessageBoxResult.No:
+                    JournalFileSystemController.AddInfo("Предыдущая сессия очищена");
                     this.backup.ClearFileSystem();
                     break;
                 default:
@@ -136,16 +140,16 @@ namespace JournalingGUI.Controller
         /// Удаляет файл из файловой системы.
         /// </summary>
         /// <param name="fileName">Имя файла.</param>
-        public void Delete(string fileName)
+        public void Delete(FileModel file)
         {
-            var path = Path.Combine(this.path, fileName);
+            var path = Path.Combine(this.path, file.ToString());
 
             if(IsFileExist(path))
             {
                 File.Delete(path);
             } else
             {
-                MessageBoxHellpers.Error("Ошибка", $"Файл с именем: {fileName} не существует в дириктории {path}");
+                MessageBoxHellpers.Error("Ошибка", $"Файл с именем: {file.ToString()} не существует в дириктории {path}");
             }
         }
 

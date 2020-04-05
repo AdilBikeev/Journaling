@@ -36,7 +36,10 @@
                 <DockPanel>
                     <StackPanel Background="#FF5B66E8">
                         <Label>Журнал</Label>
-                        <RichTextBox Height="336" IsEnabled="False"></RichTextBox>
+                        <RichTextBox x:Name="JournalRtb"
+                                     Height="336" 
+                                     IsEnabled="False"
+                                     Block.LineHeight="1.0"></RichTextBox>
                     </StackPanel>
                 </DockPanel>
             </GroupBox>

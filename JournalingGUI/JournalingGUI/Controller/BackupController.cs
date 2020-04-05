@@ -11,7 +11,7 @@ namespace JournalingGUI.Controller
     /// <summary>
     /// Описывает структуру файловой системы для восстановления файлов
     /// </summary>
-    internal class BackupController: BaseFileSystem
+    public class BackupController: BaseFileSystem
     {
         /// <summary>
         /// Путь к файловой системе
