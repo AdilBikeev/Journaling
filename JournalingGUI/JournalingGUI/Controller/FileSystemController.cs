@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 
 namespace JournalingGUI.Controller
 {
@@ -21,7 +22,12 @@ namespace JournalingGUI.Controller
         /// <summary>
         /// Время обновления файловой системы в мс.
         /// </summary>
-        private static readonly int timeUpdate = 1000;
+        private static readonly int timeUpdate = 3000;
+
+        /// <summary>
+        /// Время сна перед выполнением операции с файловой системой
+        /// </summary>
+        private static readonly int timeOperation = 5000;
 
         /// <summary>
         /// Список файлов
@@ -77,6 +83,7 @@ namespace JournalingGUI.Controller
         ///<inheritdoc/>
         public override bool Save(FileModel file)
         {
+            Thread.Sleep(FileSystemController.timeOperation);
             if (IsFileExist(Path.Combine(this.path, $"{file.fileName}{file.extension}")))
             {
                 var result = MessageBoxHellpers.Questions("Файл с данным именем уже существует, вы уверены, что хотите перезаписать данные в нём ?");
@@ -118,14 +125,18 @@ namespace JournalingGUI.Controller
         /// <param name="fileName">Имя файла.</param>
         public void Delete(FileModel file)
         {
+            JournalFileSystemController.AddInfo($"Начало удаление файла {file.ToString()}");
+            Thread.Sleep(FileSystemController.timeOperation);
             var path = Path.Combine(this.path, file.ToString());
 
             if(IsFileExist(path))
             {
                 File.Delete(path);
+                JournalFileSystemController.AddInfo($"Конец операции удаление файла {file.ToString()}");
             } else
             {
                 MessageBoxHellpers.Error("Ошибка", $"Файл с именем: {file.ToString()} не существует в дириктории {path}");
+                JournalFileSystemController.AddInfo($"Ошибка при удалении файла {file.ToString()}");
             }
         }
 
@@ -155,7 +166,7 @@ namespace JournalingGUI.Controller
                 case System.Windows.MessageBoxResult.OK:
                     break;
                 case System.Windows.MessageBoxResult.Cancel:
-                    JournalFileSystemController.AddInfo("Восстановление сессии отменено");
+                    JournalFileSystemController.AddInfo("Восстановление файловой системы отменено");
                     break;
                 case System.Windows.MessageBoxResult.Yes:
                     this.ClearFileSystem();
@@ -167,7 +178,8 @@ namespace JournalingGUI.Controller
                     JournalFileSystemController.AddInfo("Сессия файловой системы успешно восстановлена");
                     break;
                 case System.Windows.MessageBoxResult.No:
-                    JournalFileSystemController.AddInfo("Предыдущая сессия очищена");
+                    JournalFileSystemController.AddInfo("Предыдущая версия файловой системы очищена");
+                    this.ClearFileSystem();
                     this.backup.ClearFileSystem();
                     break;
                 default:

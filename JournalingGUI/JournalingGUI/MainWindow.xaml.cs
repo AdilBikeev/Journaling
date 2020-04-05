@@ -108,11 +108,14 @@ namespace JournalingGUI
                     this.NameFileTb.IsEnabled = false;
                     this.DeleteFileDtn.IsEnabled = true;
                     this.NameFileTb.Text = item.fileName;
-                }else
+                    JournalFileSystemController.AddInfo("Начало изменения существуещего файла");
+                }
+                else
                 {
                     this.NameFileTb.IsEnabled = true;
                     this.DeleteFileDtn.IsEnabled = false;
                     this.NameFileTb.Text = string.Empty;
+                    JournalFileSystemController.AddInfo("Начало создание нового файла");
                 }
 
                 TextRange textRange = new TextRange(this.BodyFileRtb.Document.ContentStart, this.BodyFileRtb.Document.ContentEnd);
