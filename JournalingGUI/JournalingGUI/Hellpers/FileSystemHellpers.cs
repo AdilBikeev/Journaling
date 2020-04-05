@@ -67,6 +67,7 @@ namespace JournalingGUI.Hellpers
                 if(file.Value.fileName != FileModel.DefaultFileName)
                 {
                     var item = filesListOld.FirstOrDefault(x => x.fileName == file.Value.fileName);
+                    JournalFileSystemController.AddInfo($"Файл {item.ToString()} удален");
                     filesListOld.Remove(item);
                 }
             }
@@ -75,6 +76,11 @@ namespace JournalingGUI.Hellpers
             foreach (var file in journal.changeBodyFiles)
             {
                 var item = filesListOld.FirstOrDefault(x => x.fileName == file.Value.fileName);
+                if(item.body != file.Value.body)
+                {
+                    JournalFileSystemController.AddInfo($"Содержание файла {item.ToString()} изменено");
+                }
+
                 item.body = file.Value.body;
             }
 
@@ -82,6 +88,7 @@ namespace JournalingGUI.Hellpers
             foreach (var file in journal.filesListNew)
             {
                 filesListOld.Add(file);
+                JournalFileSystemController.AddInfo($"Добавлен новый файл {file.ToString()}");
             }
         }
     }

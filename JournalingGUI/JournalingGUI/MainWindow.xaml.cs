@@ -117,10 +117,9 @@ namespace JournalingGUI
             file.fileName = this.NameFileTb.Text;
 
             var items = this.FilesListBox.Items;
-            this.FilesListBox.SelectedItem = items[items.Count-2];
+            this.FilesListBox.SelectedItem = items[0];
             Thread.Sleep(1000);
             FileSystem.Delete(file);
-            JournalFileSystemController.AddInfo($"Файл {file.ToString()} удален");
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

@@ -38,8 +38,9 @@
                         <Label>Журнал</Label>
                         <RichTextBox x:Name="JournalRtb"
                                      Height="336" 
-                                     IsEnabled="False"
-                                     Block.LineHeight="1.0"></RichTextBox>
+                                     IsReadOnly="True"
+                                     Block.LineHeight="1.0"
+                                     VerticalScrollBarVisibility="Visible"></RichTextBox>
                     </StackPanel>
                 </DockPanel>
             </GroupBox>
