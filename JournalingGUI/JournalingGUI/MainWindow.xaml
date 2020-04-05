@@ -37,7 +37,7 @@
                     <StackPanel Background="#FF5B66E8">
                         <Label>Журнал</Label>
                         <RichTextBox x:Name="JournalRtb"
-                                     Height="336" 
+                                     Height="320" 
                                      IsReadOnly="True"
                                      Block.LineHeight="1.0"
                                      VerticalScrollBarVisibility="Visible"></RichTextBox>

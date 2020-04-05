@@ -23,7 +23,7 @@
 
 
     <Style TargetType="ListBox">
-        <Setter Property="Height" Value="336"></Setter>
+        <Setter Property="Height" Value="320"></Setter>
         <Setter Property="Margin" Value="10 0 10 10"></Setter>
     </Style>
     
@@ -40,9 +40,10 @@
     <Style TargetType="Button">
         <Setter Property="FontSize" Value="20"></Setter>
         <Setter Property="Cursor" Value="Hand"></Setter>
-        <Setter Property="Margin" Value="10 0 10 10"></Setter>
+        <Setter Property="Margin" Value="10 0 10 0"></Setter>
         <Setter Property="Background" Value="White"></Setter>
         <Setter Property="Foreground" Value="Black"></Setter>
+        <Setter Property="Height" Value="30" />
     </Style>
 
     <Style TargetType="TextBox">
