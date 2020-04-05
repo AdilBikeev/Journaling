@@ -40,7 +40,7 @@ namespace JournalingGUI.Hellpers
         {
             var fileNameNew = $"{file.fileName} — копия";
             var countCopy = 0;
-            while (File.Exists(Path.Combine(path, $"{fileNameNew}.{file.extension}")))
+            while (File.Exists(Path.Combine(path, $"{fileNameNew}{file.extension}")))
             {
                 countCopy = countCopy == 0 ? 2 : countCopy + 1;
                 fileNameNew = $"{file.fileName} — копия ({countCopy})";
