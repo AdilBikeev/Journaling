@@ -18,11 +18,14 @@ namespace JournalingGUI.Controller
         /// </summary>
         private readonly string path = Path.Combine(Directory.GetCurrentDirectory(), "backup");
 
-        public Backup backup;
+        /// <summary>
+        /// Список backup файлов
+        /// </summary>
+        public ObservableCollection<FileModel> filesBackupList;
 
         public BackupController()
         {
-            this.backup = new Backup();
+            this.filesBackupList = new ObservableCollection<FileModel>();
         }
         
         ///<inheritdoc/>
@@ -41,7 +44,7 @@ namespace JournalingGUI.Controller
                         extension = file.Extension
                     };
 
-                    this.backup.filesBackupList.Add(fileModel);
+                    this.filesBackupList.Add(fileModel);
                 }
             }
             catch (Exception exc)
