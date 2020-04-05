@@ -54,7 +54,8 @@ namespace JournalingGUI.Controller
                     var fileModel = new FileModel()
                     {
                         body = FileSystemHellpers.GetBodyFile(file.FullName),
-                        fileName = file.Name
+                        fileName = file.Name.Substring(0,file.Name.LastIndexOf('.')),
+                        extension = file.Extension
                     };
 
                     currentFiles.Add(fileModel);
@@ -72,24 +73,36 @@ namespace JournalingGUI.Controller
         /// <summary>
         /// Сохраняет файл в файловой системе
         /// </summary>
-        public void Save(string fileName, string body)
+        public void Save(FileModel file, bool isNewFile)
         {
-            if(IsFileExist(fileName) && !MessageBoxHellpers.Questions("Файл с данным именем уже существует, вы уверены, что хотите перезаписать данные в нём ?"))
+            if (IsFileExist(Path.Combine(this.path, $"{file.fileName}.{file.extension}")))
             {
-                return;
-            }else
+                var result = MessageBoxHellpers.Questions("Файл с данным именем уже существует, вы уверены, что хотите перезаписать данные в нём ?");
+
+                switch (result)
+                {
+                    case System.Windows.MessageBoxResult.Cancel:
+                        return;
+                    case System.Windows.MessageBoxResult.Yes:
+                        break;
+                    case System.Windows.MessageBoxResult.No:
+                        FileSystemHellpers.SetOriginalFileName(this.path, file);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            try
             {
-                try
+                using (StreamWriter sw = new StreamWriter(Path.Combine(this.path, $"{file.fileName}.{file.extension}")))
                 {
-                    using (StreamWriter sw = new StreamWriter(Path.Combine(this.path, fileName)))
-                    {
-                        sw.Write(body);
-                    }
+                    sw.Write(file.body);
                 }
-                catch (Exception exc)
-                {
-                    MessageBoxHellpers.Error($"Исключение {nameof(FileSystemController)}.Save", exc.Message);
-                }
+            }
+            catch (Exception exc)
+            {
+                MessageBoxHellpers.Error($"Исключение {nameof(FileSystemController)}.Save", exc.Message);
             }
         }
 

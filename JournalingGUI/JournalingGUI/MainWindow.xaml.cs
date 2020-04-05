@@ -50,26 +50,52 @@ namespace JournalingGUI
             this.BodyFileRtb.IsEnabled = true;
             this.SaveFileBtn.IsEnabled = true;
 
-            var item = (FileModel)this.FilesListBox.SelectedItem;
-            if(item.fileName != FileModel.DefaultFileName)
+            if(this.FilesListBox.SelectedItem != null)
             {
-                this.NameFileTb.IsEnabled = false;
-                this.DeleteFileDtn.IsEnabled = true;
-                this.NameFileTb.Text = item.fileName;
-            }else
-            {
-                this.NameFileTb.IsEnabled = true;
-                this.DeleteFileDtn.IsEnabled = false;
-                this.NameFileTb.Text = "Новый файл";
-            }
+                var item = (FileModel)this.FilesListBox.SelectedItem;
 
-            TextRange textRange = new TextRange(this.BodyFileRtb.Document.ContentStart, this.BodyFileRtb.Document.ContentEnd);
-            textRange.Text = item.body;
+                if(item.fileName != FileModel.DefaultFileName)
+                {
+                    this.NameFileTb.IsEnabled = false;
+                    this.DeleteFileDtn.IsEnabled = true;
+                    this.NameFileTb.Text = item.fileName;
+                }else
+                {
+                    this.NameFileTb.IsEnabled = true;
+                    this.DeleteFileDtn.IsEnabled = false;
+                    this.NameFileTb.Text = string.Empty;
+                }
+
+                TextRange textRange = new TextRange(this.BodyFileRtb.Document.ContentStart, this.BodyFileRtb.Document.ContentEnd);
+                textRange.Text = item.body;
+            }
         }
 
         private void SaveFileBtn_Click(object sender, RoutedEventArgs e)
         {
-            FileSystem.Save(this.NameFileTb.Text, (new TextRange(this.BodyFileRtb.Document.ContentStart, this.BodyFileRtb.Document.ContentEnd)).Text);
+            if (this.FilesListBox.SelectedItem != null)
+            {
+                FileModel file = new FileModel();
+                bool isNewFile = file.fileName == FileModel.DefaultFileName;
+
+                file.fileName = this.NameFileTb.Text;
+                if (!string.IsNullOrEmpty(file.fileName))
+                {
+                    if (file.fileName != FileModel.DefaultFileName)
+                    {
+                        file.body = (new TextRange(this.BodyFileRtb.Document.ContentStart, this.BodyFileRtb.Document.ContentEnd)).Text;
+                        FileSystem.Save(file, isNewFile);
+                    }
+                    else
+                    {
+                        MessageBoxHellpers.Error("Ошибка", "Недопустимое имя файла");
+                    }
+                }
+                else
+                {
+                    MessageBoxHellpers.Error("Ошибка", "Поле 'Имя файла' обязательно для заполнения !");
+                }
+            }
         }
 
         private void DeleteFileDtn_Click(object sender, RoutedEventArgs e)
@@ -77,6 +103,7 @@ namespace JournalingGUI
             var fileName = this.NameFileTb.Text;
             var items = this.FilesListBox.Items;
             this.FilesListBox.SelectedItem = items[items.Count-2];
+            Thread.Sleep(1000);
             FileSystem.Delete(fileName);
         }
     }

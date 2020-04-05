@@ -24,6 +24,6 @@ namespace JournalingGUI.Hellpers
         /// </summary>
         /// <param name="body">Сообщение пользоваетлю.</param>
         /// <returns></returns>
-        public static bool Questions(string body) => MessageBox.Show(body, question_title, MessageBoxButton.YesNoCancel, MessageBoxImage.Question) == MessageBoxResult.Yes;
+        public static MessageBoxResult Questions(string body) => MessageBox.Show(body, question_title, MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
     }
 }

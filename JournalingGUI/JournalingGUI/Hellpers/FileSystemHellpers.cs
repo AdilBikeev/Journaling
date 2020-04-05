@@ -31,6 +31,25 @@ namespace JournalingGUI.Hellpers
         }
 
         /// <summary>
+        /// Задает оригинальное имя для файла
+        /// </summary>
+        /// <param name="path">Путь, в котором проверяется оригинальность файла</param>
+        /// <param name="file">Объект файла</param>
+        /// <returns></returns>
+        public static void SetOriginalFileName(string path, FileModel file)
+        {
+            var fileNameNew = $"{file.fileName} — копия";
+            var countCopy = 0;
+            while (File.Exists(Path.Combine(path, $"{fileNameNew}.{file.extension}")))
+            {
+                countCopy = countCopy == 0 ? 2 : countCopy + 1;
+                fileNameNew = $"{file.fileName} — копия ({countCopy})";
+            }
+
+            file.fileName = fileNameNew;
+        }
+
+        /// <summary>
         /// Обновляет ListBox на основе Журнала.
         /// </summary>
         /// <param name="filesListOld">Старый список.</param>

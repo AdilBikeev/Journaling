@@ -9,7 +9,12 @@ namespace JournalingGUI.Models
     /// </summary>
     public class FileModel
     {
-        public const string DefaultFileName = "+"; 
+        public const string DefaultFileName = "+";
+
+        /// <summary>
+        /// Расширение для файлов по умолчанию.
+        /// </summary>
+        public const string DefaultExtension = "txt";
 
         /// <summary>
         /// Название файла с расширением
@@ -21,9 +26,17 @@ namespace JournalingGUI.Models
         /// </summary>
         public string body { get; set; }
 
+        /// <summary>
+        /// Расширение файла
+        /// </summary>
+        public string extension { get; set; }
+
         public override string ToString()
         {
-            return fileName; 
+            if (this.fileName == FileModel.DefaultFileName)
+                return FileModel.DefaultFileName;
+            else
+                return $"{this.fileName}{this.extension}"; 
         }
 
         /// <summary>
@@ -33,6 +46,7 @@ namespace JournalingGUI.Models
         {
             this.body = string.Empty;
             this.fileName = FileModel.DefaultFileName;
+            this.extension = FileModel.DefaultExtension;
         }
     }
 }
