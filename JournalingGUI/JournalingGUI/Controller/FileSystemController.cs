@@ -147,7 +147,7 @@ namespace JournalingGUI.Controller
         /// <returns></returns>
         public bool RestoreFileSystem(out StateApplication state)
         {
-            var result = MessageBoxHellpers.Questions("Восстанвоить предыдущий сеанс ?");
+            var result = MessageBoxHellpers.Questions("Восстанвоить файловую систему ?");
             switch (result)
             {
                 case System.Windows.MessageBoxResult.None:
@@ -158,23 +158,14 @@ namespace JournalingGUI.Controller
                     JournalFileSystemController.AddInfo("Восстановление сессии отменено");
                     break;
                 case System.Windows.MessageBoxResult.Yes:
-                    JournalFileSystemController.AddInfo("Начало восстановление сессии");
                     this.ClearFileSystem();
                     this.backup.Restore(this.filesList);
                     foreach (var file in this.filesList)
                     {
                         this.Save(file);
                     }
-                    if(this.backup.RestoreState(out state))
-                    {
-                        JournalFileSystemController.AddInfo("Сессия восстановлена");
-                        return true;
-                    }else
-                    {
-                        JournalFileSystemController.AddInfo("Сессию файловой системы успешно восстановлена");
-                        JournalFileSystemController.AddInfo("Сессию приложения не удалось восстанвоить");
-                        return false;
-                    }
+                    JournalFileSystemController.AddInfo("Сессия файловой системы успешно восстановлена");
+                    break;
                 case System.Windows.MessageBoxResult.No:
                     JournalFileSystemController.AddInfo("Предыдущая сессия очищена");
                     this.backup.ClearFileSystem();
@@ -183,9 +174,25 @@ namespace JournalingGUI.Controller
                     break;
             }
 
-            state = null;
-
-            return false;
+            if (MessageBoxHellpers.Questions("Восстанвоить предыдущую сессию приложения ?") == System.Windows.MessageBoxResult.Yes)
+            {
+                if (this.backup.RestoreState(out state))
+                {
+                    JournalFileSystemController.AddInfo("Сессию приложения успешно установлена");
+                    return true;
+                }
+                else
+                {
+                    JournalFileSystemController.AddInfo("Сессию приложения не удалось восстанвоить");
+                    return false;
+                }
+            }
+            else
+            {
+                JournalFileSystemController.AddInfo("Предыдущая сессия приложения отменена");
+                state = null;
+                return false;
+            }
         }
     }
 }
