@@ -108,7 +108,7 @@ namespace JournalingGUI
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
+            this.FileSystem.SaveSession();
         }
     }
 }

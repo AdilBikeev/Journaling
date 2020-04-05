@@ -79,7 +79,8 @@ namespace JournalingGUI.Controller
         {
             foreach (var file in files)
             {
-                this.Save(file);
+                if(file.fileName != FileModel.DefaultFileName)
+                    this.Save(file);
             }
         }
     }

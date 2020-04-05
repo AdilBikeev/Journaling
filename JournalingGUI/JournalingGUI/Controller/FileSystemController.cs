@@ -144,5 +144,13 @@ namespace JournalingGUI.Controller
                 MessageBoxHellpers.Error("Ошибка", $"Файл с именем: {fileName} не существует в дириктории {path}");
             }
         }
+
+        /// <summary>
+        /// Сохраняет текущую сессию в backup
+        /// </summary>
+        public void SaveSession()
+        {
+            this.backup.SaveAll(this.filesList);
+        }
     }
 }
