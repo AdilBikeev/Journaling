@@ -103,7 +103,7 @@ namespace JournalingGUI.Controller
         }
     
         ///<inheritdoc/>
-        public override void Save(FileModel file)
+        public override bool Save(FileModel file)
         {
             if (IsFileExist(Path.Combine(this.path, $"{file.fileName}{file.extension}")))
             {
@@ -112,7 +112,7 @@ namespace JournalingGUI.Controller
                 switch (result)
                 {
                     case System.Windows.MessageBoxResult.Cancel:
-                        return;
+                        return false;
                     case System.Windows.MessageBoxResult.Yes:
                         break;
                     case System.Windows.MessageBoxResult.No:
@@ -129,11 +129,15 @@ namespace JournalingGUI.Controller
                 {
                     sw.Write(file.body);
                 }
+
+                return true;
             }
             catch (Exception exc)
             {
                 MessageBoxHellpers.Error($"Исключение {nameof(FileSystemController)}.Save", exc.Message);
             }
+
+            return false;
         }
 
         /// <summary>
@@ -160,6 +164,7 @@ namespace JournalingGUI.Controller
         {
             this.backup.ClearFileSystem();
             this.backup.SaveAll(this.filesList);
+            JournalFileSystemController.AddInfo("Сессия сохранена");
         }
     }
 }

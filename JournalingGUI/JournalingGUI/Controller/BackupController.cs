@@ -56,7 +56,7 @@ namespace JournalingGUI.Controller
         }
 
         ///<inheritdoc/>
-        public override void Save(FileModel file)
+        public override bool Save(FileModel file)
         {
             try
             {
@@ -64,11 +64,15 @@ namespace JournalingGUI.Controller
                 {
                     sw.Write(file.body);
                 }
+
+                return true;
             }
             catch (Exception exc)
             {
                 MessageBoxHellpers.Error($"Исключение {nameof(FileSystemController)}.Save", exc.Message);
             }
+
+            return false;
         }
 
         /// <summary>

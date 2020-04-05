@@ -20,7 +20,7 @@ namespace JournalingGUI.Models
         /// <summary>
         /// Сохраняет файл в файловой системе
         /// </summary>
-        public abstract void Save(FileModel file);
+        public abstract bool Save(FileModel file);
 
         /// <summary>
         /// Проверяет есть ли файл с таким же именем.

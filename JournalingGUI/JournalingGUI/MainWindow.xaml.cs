@@ -90,7 +90,13 @@ namespace JournalingGUI
                     if (file.fileName != FileModel.DefaultFileName)
                     {
                         file.body = (new TextRange(this.BodyFileRtb.Document.ContentStart, this.BodyFileRtb.Document.ContentEnd)).Text;
-                        FileSystem.Save(file);
+                        if(FileSystem.Save(file))
+                        {
+                            JournalFileSystemController.AddInfo($"Файл {file.ToString()} успешно сохранён");
+                        }else
+                        {
+                            JournalFileSystemController.AddInfo($"Файл {file.ToString()} не сохранён");
+                        }
                     }
                     else
                     {
@@ -114,7 +120,7 @@ namespace JournalingGUI
             this.FilesListBox.SelectedItem = items[items.Count-2];
             Thread.Sleep(1000);
             FileSystem.Delete(file);
-            JournalFileSystemController.AddInfo($"Файл {file.ToString()} удален из файловой системы");
+            JournalFileSystemController.AddInfo($"Файл {file.ToString()} удален");
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
