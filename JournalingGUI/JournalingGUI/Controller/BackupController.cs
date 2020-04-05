@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace JournalingGUI.Controller
 {
@@ -75,6 +76,52 @@ namespace JournalingGUI.Controller
             return false;
         }
 
+        public bool SaveState(StateApplication state)
+        {
+            try
+            {
+                XmlSerializer serializer = new XmlSerializer(state.GetType());
+
+                using (StreamWriter sw = new StreamWriter(Path.Combine(this.path, StateApplication.fileName)))
+                {
+                    serializer.Serialize(sw, state);
+                }
+                return true;
+            }
+            catch (Exception exc)
+            {
+                MessageBoxHellpers.Error($"Исключение {nameof(FileSystemController)}.SaveState", exc.Message);
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Восстанавливает состояние приложение из xml файла состояний
+        /// </summary>
+        /// <param name="state"></param>
+        public bool RestoreState(out StateApplication state)
+        {
+            try
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(StateApplication));
+
+                using (StreamReader sr = new StreamReader(Path.Combine(this.path, StateApplication.fileName)))
+                {
+                    state = (StateApplication)serializer.Deserialize(sr);
+                }
+                return true;
+            }
+            catch (Exception exc)
+            {
+                MessageBoxHellpers.Error($"Исключение {nameof(FileSystemController)}.SaveState", exc.Message);
+            }
+
+            state = null;
+
+            return false;
+        }
+
         /// <summary>
         /// Сохраняет все файлы в backup
         /// </summary>
@@ -96,7 +143,8 @@ namespace JournalingGUI.Controller
         {
             foreach (var file in this.filesBackupList)
             {
-                files.Add(file);
+                if(file.ToString() != StateApplication.fileName)
+                    files.Add(file);
             }
         }
     }

@@ -30,13 +30,15 @@ namespace JournalingGUI
         public MainWindow()
         {
             InitializeComponent();
+            InitStateForm();
             InitJournal();
 
             FileSystem = new FileSystemController();
+            this.RequestRestore();
+
             this.FilesListBox.ItemsSource = FileSystem.filesList;
 
             FileSystem.UpdateFileSystemAsync();
-            InitStateForm();
         }
 
         private void InitJournal()
@@ -50,6 +52,46 @@ namespace JournalingGUI
             this.BodyFileRtb.IsEnabled = false;
             this.SaveFileBtn.IsEnabled = false;
             this.DeleteFileDtn.IsEnabled = false;
+        }
+
+        /// <summary>
+        /// Сохраняет состояние приложения
+        /// </summary>
+        private void SaveState()
+        {
+            StateApplication state = new StateApplication
+            {
+                file = new FileModel()
+                {
+                    fileName = this.NameFileTb.Text,
+                    body = (new TextRange(this.BodyFileRtb.Document.ContentStart, this.BodyFileRtb.Document.ContentEnd)).Text
+                },
+                IsNewFile = this.NameFileTb.IsEnabled
+            };
+
+            this.FileSystem.SaveState(state);
+        }
+
+        private void RequestRestore()
+        {
+            StateApplication state;
+            if(this.FileSystem.RestoreFileSystem(out state))
+            {
+                if(state.IsNewFile)
+                {
+                    this.NameFileTb.IsEnabled = true;
+                    this.DeleteFileDtn.IsEnabled = false;
+
+                }else
+                {
+                    this.NameFileTb.IsEnabled = false;
+                    this.DeleteFileDtn.IsEnabled = true;
+                }
+
+                this.BodyFileRtb.IsEnabled = true;
+                (new TextRange(this.BodyFileRtb.Document.ContentStart, this.BodyFileRtb.Document.ContentEnd)).Text = state.file.body;
+                this.NameFileTb.Text = state.file.fileName;
+            }
         }
 
         private void FilesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -125,6 +167,7 @@ namespace JournalingGUI
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             this.FileSystem.SaveSession();
+            this.SaveState();
         }
     }
 }
