@@ -16,7 +16,7 @@ namespace JournalingGUI.Controller
         /// <summary>
         /// Путь к файловой системе
         /// </summary>
-        private readonly string path = Path.Combine(Directory.GetCurrentDirectory(), "backup");
+        protected override string path { get; set; }
 
         /// <summary>
         /// Список backup файлов
@@ -25,7 +25,9 @@ namespace JournalingGUI.Controller
 
         public BackupController()
         {
+            this.path = Path.Combine(Directory.GetCurrentDirectory(), "backup");
             this.filesBackupList = new ObservableCollection<FileModel>();
+            this.Load();
         }
         
         ///<inheritdoc/>
@@ -66,6 +68,18 @@ namespace JournalingGUI.Controller
             catch (Exception exc)
             {
                 MessageBoxHellpers.Error($"Исключение {nameof(FileSystemController)}.Save", exc.Message);
+            }
+        }
+
+        /// <summary>
+        /// Сохраняет все файлы в backup
+        /// </summary>
+        /// <param name="files">Файлы, котоыре нужно сохранить</param>
+        public void SaveAll(ObservableCollection<FileModel> files)
+        {
+            foreach (var file in files)
+            {
+                this.Save(file);
             }
         }
     }

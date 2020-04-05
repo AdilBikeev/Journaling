@@ -8,6 +8,11 @@ namespace JournalingGUI.Models
     public abstract class BaseFileSystem
     {
         /// <summary>
+        /// Путь к файловой системе
+        /// </summary>
+        protected abstract string path { get; set; }
+
+        /// <summary>
         /// Загружает все данные файловой системы
         /// </summary>
         public abstract void Load();
@@ -30,6 +35,19 @@ namespace JournalingGUI.Models
             else
             {
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// Очищает файловую систему
+        /// </summary>
+        public virtual void ClearFileSystem()
+        {
+            DirectoryInfo directory = new DirectoryInfo(this.path);
+
+            foreach (var file in directory.GetFiles())
+            {
+                File.Delete(Path.Combine(this.path, file.Name));
             }
         }
     }

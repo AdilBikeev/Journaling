@@ -16,7 +16,7 @@ namespace JournalingGUI.Controller
         /// <summary>
         /// Путь к файловой системе
         /// </summary>
-        private readonly string path = Path.Combine(Directory.GetCurrentDirectory(), "file_system");
+        protected override string path { get; set; }
 
         /// <summary>
         /// Время обновления файловой системы в мс.
@@ -28,8 +28,34 @@ namespace JournalingGUI.Controller
         /// </summary>
         public ObservableCollection<FileModel> filesList = new ObservableCollection<FileModel>();
 
+        /// <summary>
+        /// Контроллер для backup фалйовой системы.
+        /// </summary>
+        private BackupController backup = new BackupController();
+
         public FileSystemController()
         {
+            this.path = Path.Combine(Directory.GetCurrentDirectory(), "file_system");
+
+            var result = MessageBoxHellpers.Questions("Восстанвоить предыдущий сеанс ?");
+            switch (result)
+            {
+                case System.Windows.MessageBoxResult.None:
+                    break;
+                case System.Windows.MessageBoxResult.OK:
+                    break;
+                case System.Windows.MessageBoxResult.Cancel:
+                    break;
+                case System.Windows.MessageBoxResult.Yes:
+                    this.ClearFileSystem();
+                    //Перезапись fileList из fileBackupList
+                    break;
+                case System.Windows.MessageBoxResult.No:
+                    this.backup.ClearFileSystem();
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void UpdateFileSystemAsync()

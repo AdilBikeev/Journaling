@@ -105,5 +105,10 @@ namespace JournalingGUI
             Thread.Sleep(1000);
             FileSystem.Delete(fileName);
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
     }
 }

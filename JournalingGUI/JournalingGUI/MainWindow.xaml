@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:JournalingGUI"
         mc:Ignorable="d"
         Title="Журналирование файловой системы" Height="450" Width="800"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize" Closing="Window_Closing">
     <Window.Resources>
         <ResourceDictionary Source="./Resource/MainDictionary.xaml"></ResourceDictionary>
     </Window.Resources>
