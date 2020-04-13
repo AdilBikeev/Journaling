@@ -22,12 +22,12 @@ namespace JournalingGUI.Controller
         /// <summary>
         /// Время обновления файловой системы в мс.
         /// </summary>
-        private static readonly int timeUpdate = 3000;
+        private static readonly int timeUpdate = 0;
 
         /// <summary>
         /// Время сна перед выполнением операции с файловой системой
         /// </summary>
-        private static readonly int timeOperation = 5000;
+        private static readonly int timeOperation = 0;
 
         /// <summary>
         /// Список файлов
