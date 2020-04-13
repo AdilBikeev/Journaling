@@ -158,6 +158,7 @@ namespace JournalingGUI.Controller
         /// <returns></returns>
         public bool RestoreFileSystem(out StateApplication state)
         {
+            /*
             var result = MessageBoxHellpers.Questions("Восстанвоить файловую систему ?");
             switch (result)
             {
@@ -185,10 +186,13 @@ namespace JournalingGUI.Controller
                 default:
                     break;
             }
+            */
 
+            var result = this.backup.RestoreState(out state);
             if (MessageBoxHellpers.Questions("Восстанвоить предыдущую сессию приложения ?") == System.Windows.MessageBoxResult.Yes)
             {
-                if (this.backup.RestoreState(out state))
+                
+                if (result)
                 {
                     JournalFileSystemController.AddInfo("Сессию приложения успешно установлена");
                     return true;
@@ -202,7 +206,6 @@ namespace JournalingGUI.Controller
             else
             {
                 JournalFileSystemController.AddInfo("Предыдущая сессия приложения отменена");
-                state = null;
                 return false;
             }
         }

@@ -18,5 +18,8 @@ namespace JournalingGUI.Models
 
         [XmlElement(ElementName = "IsNewFile")]
         public bool IsNewFile { get; set; }
+
+        [XmlElement(ElementName = "GeneralLog")]
+        public string GeneralLog { get; set; }
     }
 }

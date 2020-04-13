@@ -66,7 +66,8 @@ namespace JournalingGUI
                     fileName = this.NameFileTb.Text,
                     body = (new TextRange(this.BodyFileRtb.Document.ContentStart, this.BodyFileRtb.Document.ContentEnd)).Text
                 },
-                IsNewFile = this.NameFileTb.IsEnabled
+                IsNewFile = this.NameFileTb.IsEnabled,
+                GeneralLog = (new TextRange(this.JournalRtb.Document.ContentStart, this.JournalRtb.Document.ContentEnd)).Text
             };
 
             this.FileSystem.SaveState(state);
@@ -92,6 +93,7 @@ namespace JournalingGUI
                 (new TextRange(this.BodyFileRtb.Document.ContentStart, this.BodyFileRtb.Document.ContentEnd)).Text = state.file.body;
                 this.NameFileTb.Text = state.file.fileName;
             }
+           (new TextRange(this.JournalRtb.Document.ContentStart, this.JournalRtb.Document.ContentEnd)).Text += state.GeneralLog;
         }
 
         private void FilesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
