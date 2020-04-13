@@ -18,7 +18,7 @@
 3) Core - для кроссплатформенности приложения
 
 ## Демонстрация работы работы проекта
-[![Watch the video](https://4.downloader.disk.yandex.ru/preview/c7a87eb3a19893e30e35f93eeb645ffa3682cbba7ccd0e644cc94aa019d16a68/inf/9bzICjqJUuSWhuMPeiQWibSpNQ6OyDCf5i1e4iwhpV6NEiOvKGVl4pPU_jHVJPBHyiheIJ8Hb9NJGMG3d5uAog%3D%3D?uid=325371903&filename=Screenshot_6.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=325371903&tknv=v2&size=1903x944)](https://yadi.sk/d/otFizqYUebpBVQ/%D0%9B%D0%A04_%D0%91%D0%B8%D0%BA%D0%B5%D0%B5%D0%B2%20-%20%D0%96%D1%83%D1%80%D0%BD%D0%B0%D0%BB%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5.mp4)
+[![Нажмите на картинку](https://cdn.pixabay.com/photo/2016/08/20/06/09/video-1606945_960_720.png)](https://yadi.sk/d/otFizqYUebpBVQ/%D0%9B%D0%A04_%D0%91%D0%B8%D0%BA%D0%B5%D0%B5%D0%B2%20-%20%D0%96%D1%83%D1%80%D0%BD%D0%B0%D0%BB%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5.mp4)
 
 ## Процесс работы программы
   1. При запуске приложения сначала спрашивают пользователя желает ли он восстановить предыдущую сессию файловой системы и приложения в случаи, если такая сессия была.ф
